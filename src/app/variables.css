@@ -1,0 +1,28 @@
+:root {
+    --darkBg: #121212;
+    --darkGrey: #222222;
+    --lightBg: #FAFAFA;
+    --black: #000;
+    --white: #fff;
+    --theme: #bd2c00;
+    --permBlack: #000;
+    --permWhite: #fff;
+    --red: #bd2c00;
+    --green: #00bd2c;
+    --aBg: rgba(255, 255, 255, 0.1);
+
+    --break-point: 928px;
+    --content-width: 1200px;
+
+    --skeleton1: #212121;
+    --skeleton2: #444;
+}
+
+.light {
+    --darkBg: #FAFAFA;
+    --darkGrey: #f3f3f3;
+    --lightBg: #121212;
+    --black: #fff;
+    --white: #000; 
+    --aBg: rgba(0, 0, 0, 0.1);
+}
