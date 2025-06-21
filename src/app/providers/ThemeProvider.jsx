@@ -1,10 +1,8 @@
 "use client";
-// 1. Create the context (top of file)
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext(null);
 
-// 2. Create the provider
 export function ThemeProvider({ children }) {
 
     const [theme, setTheme] = useState(() => {
@@ -24,7 +22,6 @@ export function ThemeProvider({ children }) {
   );
 }
 
-// 3. Create the custom hook to use the context
 export function useTheme() {
   return useContext(ThemeContext);
 }

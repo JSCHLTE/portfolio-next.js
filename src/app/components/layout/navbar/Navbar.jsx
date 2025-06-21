@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import './navbar.css'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Theme from './Theme'
 
 //{ handleTheme, mode, handleBurger, navMenu, navLogin, resetUser }
 
@@ -51,7 +52,7 @@ const Navbar = () => {
               {navLogin ? <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li> : ''} */}
             </ul>
             
-            {/* <Theme handleTheme={handleTheme} mode={mode}/> */}
+            <Theme />
           
             <div className='nav-burger' onClick={() => setNavMenu(prev => !prev)}>
               <div className={`line line1 ${navMenu ? 'active' : ''}`}></div>

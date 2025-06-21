@@ -1,0 +1,21 @@
+.animated-text {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .word {
+    white-space: nowrap;
+    display: inline-block;
+  }
+  
+  .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  
+  .letter.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
