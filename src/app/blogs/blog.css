@@ -1,0 +1,312 @@
+.blog-link {
+    color: unset;
+    text-decoration: none;
+}
+
+.blogs-wrapper {
+    margin-top: 1rem;
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.blogpage-meta-buttons {
+    display: flex;
+gap: 1rem
+}
+
+.blog-meta-img-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.5rem;
+}
+
+.blogpage-edit-textarea {
+    resize: vertical;
+    width: 100%;
+    min-height: 500px;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--white);
+    color: var(--white);
+    background-color: transparent;
+}
+
+.blogpage-edit-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-family: inherit;
+    border-radius: 10px;
+    border: 1px solid var(--white);
+    color: var(--white);
+    background-color: transparent;
+}
+
+.blogpage-edit-input:hover, .blogpage-edit-textarea:hover {
+    border-color: var(--theme);
+}
+
+.blogpage-edit-input:focus, .blogpage-edit-textarea:focus {
+    border-color: var(--theme);
+    outline: none;
+}
+
+.blog-item {
+    background-color: var(--darkGrey);
+    padding: 1rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    min-height: 200px;
+    position: relative;
+}
+
+.blog-item:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.blog-item:hover .blog-snippet {
+    margin-top: 0;
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.blogpage-img-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+}
+
+.blog-meta-left {
+    display: flex;
+    align-items: center;
+}
+
+ .blog-meta-likes, .blog-meta-author-wrapper {
+    margin-left: 0.5rem;
+}
+
+.blog-title {
+    font-size: 1.25rem;
+}
+
+.blog-snippet {
+    margin-top: 0.5rem;
+    font-size: 1.05rem;
+    transition: margin 0.3s ease;
+}
+
+.blogpage-meta {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.blogpage-likes button, .blogpage-meta-buttons button  {
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-color: var(--darkGrey);
+    color: var(--white);
+    font-style: inherit;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.blogpage-likes button:hover {
+    color: #FF6961;
+}
+
+.blogpage-likes.liked button{
+    background-color: #FF6961;
+    color: var(--permWhite);
+}
+
+.blogpage-likes i {
+    margin-right: 0.25rem;
+}
+
+.blogpage-meta-buttons-admin {
+    gap: 1rem;
+    display: flex;
+}
+
+.blogpage-meta-buttons-admin button:hover {
+    background-color: var(--theme);
+    color: var(--permWhite);
+}
+
+.blogpage-author {
+    font-style: normal;
+    font-size: 1.05rem;
+}
+
+.blogpage-author span {
+    color: var(--theme);
+    font-weight: bold;
+}
+
+.blogpage-date {
+    display: inline-block;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+.blogpage-content {
+    margin-top: 2rem;
+}
+
+.blogpage-content :is(h1, h2) {
+    margin: 2rem 0;
+}
+
+.blogpage-content h1 {
+    margin-top: 0;
+}
+
+.blogpage-content :is(h3, h4, h5, h6) {
+    margin: 1rem 0;
+}
+
+.blogpage-content p {
+    margin: 1rem 0;
+}
+
+.blogpage-content ul {
+    margin: 1rem 0;
+}
+
+.blogpage-content a {
+    text-decoration: none;
+    color: var(--white);
+    background-image: linear-gradient(var(--white), var(--white)), linear-gradient(var(--aBg), var(--aBg));
+    background-position: 0 90%;
+    background-repeat: no-repeat;
+    background-size: 0 2px, 100% 2px;
+    transition: background-size .3s cubic-bezier(0,0,.33,.93);
+    padding-bottom: 2px;
+}
+
+.blogpage-content a:hover {
+    background-size: 100% 2px, 100% 2px;
+}
+
+.blog-meta-author-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-meta-author-wrapper time {
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.5;
+}
+
+.blog-delete-wrapper {
+    z-index: 6;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: var(--darkGrey);
+    padding: 1.5rem;
+    border-radius: 20px;
+    width: 90%;
+    min-width: 275px;
+    max-width: 425px;
+}
+
+.blog-delete-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--lightBg);
+    padding-bottom: 0.5rem;
+}
+
+.blog-delete-icon {
+    background-color: var(--darkBg);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.blog-delete-icon:hover {
+    background-color: var(--red);
+    color: var(--permWhite);
+}
+
+.blog-delete-body {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.blog-delete-buttons {
+    margin-top: 1rem;
+    gap: 0.25rem;
+}
+
+.blog-delete-buttons button {
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    border: 3px solid var(--white);
+    color: var(--white);
+    background-color: transparent;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.delete-yes {
+    border-color: var(--red) !important;
+}
+
+.delete-yes:hover {
+    background-color: var(--red);
+}
+
+.delete-no {
+    border-color: var(--green) !important;
+}
+
+.delete-no:hover {
+    background-color: var(--green) !important;
+}
+
+.delete-no:hover, .delete-yes:hover {
+    color: var(--permWhite);
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+    .blogs-wrapper {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .blogs-wrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.blog-card-container {
+    position: relative;
+}

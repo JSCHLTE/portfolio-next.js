@@ -46,7 +46,7 @@ const Navbar = () => {
             <ul className={`nav-links ${navMenu ? `active` : ``}`}>
               <li className='nav-link'><Link href="/">Home</Link></li>
               <li className='nav-link'><Link href="/about">About</Link></li>
-              <li className='nav-link'><Link href="/blog">Blog</Link></li>
+              <li className='nav-link'><Link href="/blogs">Blog</Link></li>
               <li className='nav-link'><Link href="/contact">Contact</Link></li>
               {/* {navLogin ? <li className='nav-link'><Link href="/admin">Dashboard</Link></li> : ''}
               {navLogin ? <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li> : ''} */}

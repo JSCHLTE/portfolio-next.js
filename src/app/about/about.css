@@ -1,0 +1,39 @@
+.about-title {
+    font-size: 2rem;
+}
+
+.aboutme-wrapper p {
+    margin-top: 1rem;
+}
+
+.work-wrapper {
+    margin-top: 1rem;
+}
+
+.work-wrapper h2 {
+    font-size: 2rem;
+}
+
+.works-item {
+    background-color: var(--darkGrey);
+    margin: 1rem 0;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.works-item.active {
+    border: 1px solid var(--theme);
+}
+
+.works-title {
+    font-size: 1.35rem !important;
+}
+
+.works-meta {
+    margin-top: 0.5rem;
+}
+
+.works-desc {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}

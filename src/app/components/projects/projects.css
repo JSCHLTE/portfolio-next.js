@@ -1,0 +1,129 @@
+.projects-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 650px) {
+    .projects-wrapper, .blogs-wrapper, .contact-wrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .home-right, .about-right, .blog-right, .contact-right {
+        flex: 2;
+        overflow-y: auto;
+        height: 80vh;
+    }
+}
+
+.projects-card-wrapper {
+    background-color: var(--darkGrey);
+    border-radius: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+} 
+
+.projects-card-wrapper:hover {
+    transform: translateY(-5px);
+}
+
+.projects-card-wrapper:hover .projects-card-desc {
+    margin-top: 0;
+}
+
+.projects-img-wrapper {
+    width: 100%;
+    height: 250px;
+}
+
+.projects-card-tags-wrapper {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.projects-card-tags-wrapper span {
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.projects-card-tags-wrapper .react {
+    background-color: #61DBFB;
+    color: #000;
+}
+
+.projects-card-tags-wrapper .open-ai {
+    background-color: #000;
+    color: #fff;
+}
+
+.projects-card-tags-wrapper .javascript {
+    background-color: #F0DB4F;
+    color: #323330;
+}
+
+.projects-card-info-wrapper {
+    margin: 1rem;
+}
+
+.projects-card-title {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 268px) {
+    .projects-card-title {
+        font-size: 1.25rem;
+    }
+}
+
+.projects-card-info-wrapper p {
+    margin: 0.5rem 0 1rem;
+    transition: margin 0.3s ease;
+}
+
+.projects-card-buttons {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.projects-card-button {
+    border-radius: 10px;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    background-color: var(--lightBg);
+    color: var(--black);
+    border: 2px solid var(--white);
+    transition: transform 0.1s ease;
+}
+
+.projects-card-button:nth-child(even) {
+    background-color: transparent;
+    border-color: var(--white);
+    color: var(--white);
+}
+
+.projects-card-button:hover {
+    background-color: var(--theme);
+    color: var(--permWhite);
+}
+
+.projects-card-button.live {
+    margin-right: 0.5rem;
+}
+
+.projects-card-button i {
+    margin-left: 0.25rem;
+}
+
+.projects-card-button:hover {
+    border-color: var(--theme);
+}

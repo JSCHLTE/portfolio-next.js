@@ -1,13 +1,12 @@
 import { useState } from "react";
 import type { Metadata } from "next";
 import { Space_Grotesk, Sora } from 'next/font/google';
+import Script from "next/script";
 import "./globals.css";
 import "./variables.css"
 
 import Navbar from '@/app/components/layout/navbar/Navbar'
 import Bio from '@/app/components/layout/bio/Bio'
-
-import { ThemeProvider } from '@/app/providers/ThemeProvider';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -35,9 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${spaceGrotesk.variable}`}>
       <body className="content-wrapper">
-        <ThemeProvider>
           <Navbar />
-        </ThemeProvider>
           <main className='layout-wrapper'>
           <div className='layout-left'>
             <Bio />
@@ -46,6 +43,11 @@ export default function RootLayout({
             {children}
           </div>
         </main>
+        <Script
+          src="https://kit.fontawesome.com/ad03dfc62c.js"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

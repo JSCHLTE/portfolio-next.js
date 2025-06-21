@@ -25,4 +25,8 @@
     --black: #fff;
     --white: #000; 
     --aBg: rgba(0, 0, 0, 0.1);
+
+    --skeleton1: #e0e0e0;
+    --skeleton2: #f5f5f5;
+
 }

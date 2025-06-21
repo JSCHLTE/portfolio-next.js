@@ -1,0 +1,9 @@
+.loading-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.loading-wrapper iframe {
+    border: none;
+    width: 100%;
+}
