@@ -16,7 +16,6 @@ const BlogCard = () => {
     <>
     {blogs.sort((a, b) => new Date(b.date) - new Date(a.date)).map((blog) => (
       <div key={blog.slug} className='blog-card-container'>
-        {console.log(blog.slug)}
         <Link className='blog-link' href={`/blogs/${blog.slug}`}>
           <article className='blog-item button-press'>
             <div className='blog-info'>

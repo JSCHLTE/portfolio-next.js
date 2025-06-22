@@ -2,6 +2,7 @@
 
 import { use, useEffect, useState } from 'react'
 import './contact.css'
+import '../forms.css'
 import AnimatedText from '@/app/utils/animated-text/AnimatedText'
 import NotificationBox from '../utils/notifications/NotificationBox'
 

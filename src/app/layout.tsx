@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Metadata } from "next";
 import { Space_Grotesk, Sora } from 'next/font/google';
 import Script from "next/script";
+import { AuthProvider } from '@/app/providers/AuthProvider'
 import "./globals.css";
 import "./variables.css"
 
@@ -34,7 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${spaceGrotesk.variable}`}>
       <body className="content-wrapper">
-          <Navbar />
+          <AuthProvider>
+            <Navbar />
           <main className='layout-wrapper'>
           <div className='layout-left'>
             <Bio />
@@ -48,6 +50,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+          </AuthProvider>
       </body>
     </html>
   );

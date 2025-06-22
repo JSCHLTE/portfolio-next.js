@@ -7,13 +7,14 @@ import FormatDate from '../../utils/format-date/FormatDate';
 import { useBlogs } from '../useBlogs';
 import { get, ref, update } from 'firebase/database';
 import { database } from '../../firebase';
+import { useParams } from 'next/navigation';
 import BlogDelete from '../BlogDelete';
 import Loading from '../../utils/loading/Loading';
 import '../blog.css'
 
-const BlogPage = ({ admin, params }) => {
+const BlogPage = ({ admin }) => {
   const { blogs, loading } = useBlogs();
-  const { slug } = params;
+  const { slug } = useParams();
   const [deleteWarn, setDeleteWarn] = useState(null)
   const [blogEdit, setBlogEdit] = useState(null)
   const [blogEdits, setBlogEdits] = useState({

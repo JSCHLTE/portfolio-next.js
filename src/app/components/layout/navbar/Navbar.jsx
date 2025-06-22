@@ -1,17 +1,27 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import './navbar.css'
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '@/app/providers/AuthProvider';
+import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import Theme from './Theme'
-
-//{ handleTheme, mode, handleBurger, navMenu, navLogin, resetUser }
+import './navbar.css'
 
 const Navbar = () => {
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [navMenu, setNavMenu] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const { user, admin, loading } = useAuth();
+
+    const ProtectedRoute = ({ children, admin }) => {
+      if (admin === undefined) return <p>Loading...</p>;
+      if (!admin) return router.push('/login');
+      return children;
+    };
     
     useEffect(() => {
       const handleScroll = () => {
@@ -22,19 +32,17 @@ const Navbar = () => {
   
       return () => window.removeEventListener('scroll', handleScroll)
     }, [])
-
-     const router = useRouter();
     
     const handleLogout = async () => {
       try {
-        await signOut(auth);
+        await signOut(user.auth);
         router.push('/login');
-        resetUser();
       } catch (error) {
         console.error("Logout error:", error.message);
       }
     };
-  
+
+
     return (
       <nav>
         <div className={`nav-inner ${isScrolled ? `active` : ``}`}>
@@ -44,12 +52,12 @@ const Navbar = () => {
           
           <div className='nav-right'>
             <ul className={`nav-links ${navMenu ? `active` : ``}`}>
-              <li className='nav-link'><Link href="/">Home</Link></li>
-              <li className='nav-link'><Link href="/about">About</Link></li>
-              <li className='nav-link'><Link href="/blogs">Blog</Link></li>
-              <li className='nav-link'><Link href="/contact">Contact</Link></li>
-              {/* {navLogin ? <li className='nav-link'><Link href="/admin">Dashboard</Link></li> : ''}
-              {navLogin ? <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li> : ''} */}
+              <li className={`nav-link ${pathname === '/' ? 'active' : ''}`}><Link href="/">Home</Link></li>
+              <li className={`nav-link ${pathname === '/about' ? 'active' : ''}`}><Link href="/about">About</Link></li>
+              <li className={`nav-link ${pathname === '/blogs' ? 'active' : ''}`}><Link href="/blogs">Blog</Link></li>
+              <li className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}><Link href="/contact">Contact</Link></li>
+              {admin ? <li className='nav-link'><Link href="/admin">Dashboard</Link></li> : ''}
+              {admin ? <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li> : ''}
             </ul>
             
             <Theme />
