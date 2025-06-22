@@ -1,8 +1,19 @@
-import './overlay.css'
+"use client";
 
-const Overlay = ({ closeMenu, setDeleteWarning }) => {
+import './overlay.css'
+import { useUI } from '@/app/providers/UIProvider';
+
+const Overlay = () => {
+
+    const { setNavMenu, overlay, setOverlay } = useUI();
+
+    const handleClick = () => {
+        setNavMenu(false)
+        setOverlay(false)
+    }
+
   return (
-    <div className='overlay' onClick={() => {closeMenu ? closeMenu() : ''; setDeleteWarning ? setDeleteWarning(false) : ''}}></div>
+    <div className={`overlay ${overlay ? 'active' : ''}`} onClick={handleClick}></div>
   )
 }
 

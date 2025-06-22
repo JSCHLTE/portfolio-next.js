@@ -4,11 +4,24 @@ import { useEffect, useState } from 'react';
 import { ref, set } from 'firebase/database';
 import { database } from '../firebase'
 import { slugify } from '../utils/slugify/slugify'; // make sure this exists!
+import { useAuth } from '../providers/AuthProvider'
+import { useRouter } from 'next/navigation';
 import AnimatedText from '../utils/animated-text/AnimatedText';
 import NotificationBox from '../utils/notifications/NotificationBox';
 import '../forms.css'
 
 const Admin = () => {
+
+    const router = useRouter();
+
+    const { admin } = useAuth();
+    
+    useEffect(() => {
+        if (admin === false) {
+          router.push('/login');
+        }
+      }, [admin]);
+
   const [formValues, setFormValues] = useState({
     blogTitle: '',
     blogBody: ''
@@ -47,7 +60,7 @@ const Admin = () => {
     };
 
     try {
-      const blogRef = ref(database, `blogs/${slug}`);
+      const blogRef = ref(database, `blog/${slug}`);
       await set(blogRef, newBlog);
       handleNotification("success", "Blog Posted", "Blog successfully posted.")
       setFormValues({ blogTitle: '', blogBody: '' });
@@ -76,40 +89,53 @@ const Admin = () => {
     return () => clearTimeout(timeout)
   }, [notifications])
 
-  return (
-    <div className='admin-wrapper'>
+return (
+  admin && (
+    <div className="admin-wrapper">
       <h1><AnimatedText text='Create a Blog' /></h1>
-      {notifications ? <NotificationBox type={notifications.type} message={notifications.message} desc={notifications.desc}/> : ''}
-      <form className='admin-form' onSubmit={handleSubmit}>
-        <div className='form-title-wrapper'>
+
+      {notifications && (
+        <NotificationBox
+          type={notifications.type}
+          message={notifications.message}
+          desc={notifications.desc}
+        />
+      )}
+
+      <form className="admin-form" onSubmit={handleSubmit}>
+        <div className="form-title-wrapper">
           <label htmlFor="blogTitle">
             Blog title:
             <input
               type="text"
-              id='blogTitle'
-              name='blogTitle'
+              id="blogTitle"
+              name="blogTitle"
               value={formValues.blogTitle}
               onChange={handleChange}
               required
             />
           </label>
         </div>
-        <div className='form-body-wrapper'>
+
+        <div className="form-body-wrapper">
           <label htmlFor="blogBody">
             Blog body:
             <textarea
-              id='blogBody'
-              name='blogBody'
+              id="blogBody"
+              name="blogBody"
               value={formValues.blogBody}
-              onChange={handleChange}>
+              onChange={handleChange}
               required
-            </textarea>
+            />
           </label>
         </div>
-        <button className='form-submit'>POST</button>
+
+        <button className="form-submit">POST</button>
       </form>
     </div>
-  );
+  )
+);
+
 };
 
 export default Admin;

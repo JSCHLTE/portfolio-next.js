@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/app/providers/AuthProvider';
+import { useUI } from '@/app/providers/UIProvider'
 import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import Theme from './Theme'
@@ -11,11 +12,11 @@ import './navbar.css'
 const Navbar = () => {
 
     const [isScrolled, setIsScrolled] = useState(false);
-    const [navMenu, setNavMenu] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
 
-    const { user, admin, loading } = useAuth();
+    const { user, admin, setAdmin, loading } = useAuth();
+    const { navMenu, setNavMenu } = useUI();
 
     const ProtectedRoute = ({ children, admin }) => {
       if (admin === undefined) return <p>Loading...</p>;
@@ -37,6 +38,7 @@ const Navbar = () => {
       try {
         await signOut(user.auth);
         router.push('/login');
+        setAdmin(undefined)
       } catch (error) {
         console.error("Logout error:", error.message);
       }
@@ -54,9 +56,9 @@ const Navbar = () => {
             <ul className={`nav-links ${navMenu ? `active` : ``}`}>
               <li className={`nav-link ${pathname === '/' ? 'active' : ''}`}><Link href="/">Home</Link></li>
               <li className={`nav-link ${pathname === '/about' ? 'active' : ''}`}><Link href="/about">About</Link></li>
-              <li className={`nav-link ${pathname === '/blogs' ? 'active' : ''}`}><Link href="/blogs">Blog</Link></li>
+              <li className={`nav-link ${pathname === '/blog' ? 'active' : ''}`}><Link href="/blog">Blog</Link></li>
               <li className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}><Link href="/contact">Contact</Link></li>
-              {admin ? <li className='nav-link'><Link href="/admin">Dashboard</Link></li> : ''}
+              {admin ? <li className={`nav-link ${pathname === '/admin' ? 'active' : ''}`}><Link href="/admin">Dashboard</Link></li> : ''}
               {admin ? <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li> : ''}
             </ul>
             
