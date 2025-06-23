@@ -1,13 +1,20 @@
+"use client";
+
 import './bio.css'
 import AnimatedText from '@/app/utils/animated-text/AnimatedText'
+import { useAuth } from '@/app/providers/AuthProvider';
 
 const Bio = () => {
+
+  const { user, admin, setAdmin, loading } = useAuth();
+
   return (
     <div className='bio-wrapper'>
         <div className='bio-img-wrapper skeleton'>
             <img src='/images/pfp.webp' alt="Stylized portrait of Jordan wearing sunglasses, created with a swirling, abstract filter effect that resembles painted brush strokes. The sunglasses reflect the word 'Vibes' in a bold, colorful font."/>
         </div>
         <div className='bio-info-wrapper'>
+          {admin ? <span className='admin-mode'>Admin Mode</span> : ''}
             <span className='bio-info-name'><AnimatedText text='Jordan Schulte'/></span>
             <div className='bio-info-location'><AnimatedText text='Buffalo, NY'/></div>
             <div className='bio-info-role'><AnimatedText text='Front-End Engineer'/></div>

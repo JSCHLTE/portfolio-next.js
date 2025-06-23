@@ -15,7 +15,8 @@ const Contact = () => {
         contactBody: ''
       })
 
-      const [notifications, setNotifications] = useState(null)
+      const [notifications, setNotifications] = useState(null);
+      const [loading, setLoading] = useState(null);
 
       const handleChange = (e) => {
         const { name, value } = e.target
@@ -28,6 +29,7 @@ const Contact = () => {
 
       const handleSubmit = async(e) => {
         e.preventDefault();
+        setLoading(true);
         const { contactName, contactEmail, contactSubject, contactBody } = formValues
 
         if(contactBody.trim() == "" || contactSubject.trim() == "") {
@@ -56,8 +58,10 @@ const Contact = () => {
                 contactSubject: '',
                 contactBody: ''
               })
+              setLoading(null);
         } catch (err){
-            handleNotification("failed", "Failed", `Message failed due to error: ${err}`)
+            handleNotification("failed", "Failed", `Message failed due to error: ${err}`);
+            setLoading(null);
         }
       }
 
@@ -72,7 +76,7 @@ const Contact = () => {
       useEffect(() => {
         let timeout;
     
-        if(notifications) {
+        if(notifications?.type !== "warning") {
             timeout = setTimeout(() => {
                 setNotifications(null)
             }, 7500)
@@ -102,7 +106,7 @@ const Contact = () => {
                 Message:
                 <textarea  id="contactBody" name="contactBody" required onChange={handleChange} value={formValues.contactBody}></textarea>
             </label>
-            {notifications?.type == "warning" ? <button className='contact-button disabled' disabled><iframe className='spinner' src="https://lottie.host/embed/a9d1be0a-eba0-4c76-9dcf-b95d27e96f6b/jpskbz67I1.lottie"></iframe></button> : <button className='contact-button button-press'>Send Message</button>}
+            {loading ? <button className='contact-button disabled' disabled><iframe className='spinner' src="https://lottie.host/embed/a9d1be0a-eba0-4c76-9dcf-b95d27e96f6b/jpskbz67I1.lottie"></iframe></button> : <button className='contact-button button-press'>Send Message</button>}
         </form>
     </div>
   )

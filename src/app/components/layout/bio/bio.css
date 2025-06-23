@@ -51,6 +51,17 @@
     opacity: 0.75;
 }
 
+.admin-mode {
+    background-color: var(--theme);
+    color: var(--permWhite);
+    padding: 0.5rem;
+    border-radius: 7px;
+    font-size: 0.75rem;
+    display: block;
+    text-align: center;
+    margin: 0 auto 1rem;
+}
+
 @media (min-width: 938px) {
     .bio-wrapper {
         flex-direction: column;
