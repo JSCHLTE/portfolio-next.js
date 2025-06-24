@@ -17,12 +17,25 @@ export function UIProvider({ children }) {
       if(navMenu) setOverlay(true);
       if(deleteWarn) setOverlay(true);
       if(!deleteWarn && !navMenu) setOverlay(false);
-    }, [navMenu, deleteWarn])
+    }, [navMenu, deleteWarn]);
 
     useEffect(() => {
       setOverlay(false)
       setDeleteWarn(false)
-    }, [pathname])
+    }, [pathname]);
+
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth >= 768) {
+          setNavMenu(false);
+        }
+      };
+    
+      window.addEventListener("resize", handleResize);
+    
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    
 
   return (
     <AuthContext.Provider value={{ navMenu, setNavMenu, overlay, setOverlay, deleteWarn, setDeleteWarn }}>
