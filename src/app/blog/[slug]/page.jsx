@@ -126,15 +126,11 @@ const BlogPage = () => {
     <div className='blogpage-wrapper'>
       { admin && deleteWarn ?
     <div className='blog-delete-wrapper'>
-        <div className='blog-delete-topbar'>
-          <h3>Delete Blog</h3>
-          <div className='blog-delete-icon flex-center' onClick={() => setDeleteWarn(false)}><i className="fa-solid fa-x"></i></div>
-        </div>
         <div className='blog-delete-body'>
-            <p>Are you sure you want to delete this blog?</p>
+            <p>Are you sure you want to delete "<b>{blog.title}</b>"?</p>
             <div className='blog-delete-buttons flex-center'>
-                <button className='delete-yes' onClick={handleDelete}>Yes</button>
-                <button className='delete-no' onClick={() => setDeleteWarn(false)}>No</button>
+                <button className='delete-yes button-press' onClick={handleDelete}>Yes</button>
+                <button className='delete-no button-press' onClick={() => setDeleteWarn(false)}>No</button>
             </div>
         </div>
     </div> : ''}
