@@ -16,7 +16,7 @@ import '../blog.css'
 import { useUI } from '@/app/providers/UIProvider';
 
 const BlogPage = () => {
-  const { admin } = useAuth();
+  const { admin, user } = useAuth();
   const { blogs, loading } = useBlogs();
   const { slug } = useParams();
   const { deleteWarn, setDeleteWarn } = useUI();
@@ -26,54 +26,43 @@ const BlogPage = () => {
     content: ''
   })
 
-  const [checkLiked, setCheckLiked] = useState(false);
-  const [likes, setLikes] = useState(0);
+  const [liked, setLiked] = useState(null);
 
-//   useEffect(() => {
-//     const likedMap = JSON.parse(localStorage.getItem("blogLikes")) || {};
-//     if (likedMap[slug]) {
-//       setCheckLiked(true);
-//     }
-//   }, [slug]);
+  const blog = blogs.find((b) => b.slug === slug);
 
-//   useEffect(() => {
-//     if (!loading) {
-//       const blog = blogs.find((b) => b.slug === slug);
-//       if (blog) {
-//         setLikes(blog.likes || 0);
-//       }
-//     }
-//   }, [loading, blogs, slug]);
+  useEffect(() => {
+    const isLiked = blog?.likes?.includes(user.uid);
+    setLiked(isLiked || null)
+  })
 
   if (loading) return <Loading />;
 
-  const blog = blogs.find((b) => b.slug === slug);
   if (!blog) return <div>Blog not found</div>;
 
 
-  // const handleLike = async () => {
-  //   const blogRef = ref(database, `blogs/${slug}`);
-  //   const likedMap = JSON.parse(localStorage.getItem("blogLikes")) || {};
-  //   const alreadyLiked = likedMap[slug] === true;
-  //   const isLiking = !alreadyLiked;
+  const handleLike = async () => {
+    const blogRef = ref(database, `blogs/${slug}`);
+    const snapshot = await get(blogRef);
 
-  //   try {
-  //     await update(blogRef, { 
-  //       likes: isLiking ? likes + 1 : Math.max(0, likes - 1)
-  //     });
-
-  //     // Update local state
-  //     setLikes((prev) => Math.max(0, isLiking ? prev + 1 - 1 : prev - 1));
-  //     setCheckLiked(isLiking);
-
-  //     // Update localStorage
-  //     const updatedLikes = { ...likedMap, [slug]: isLiking };
-  //     localStorage.setItem("blogLikes", JSON.stringify(updatedLikes));
-
-  //   } catch (error) {
-  //     console.error("Error updating likes:", error);
-  //   }
-  // };
+    if (snapshot.exists()) {
+      const blogData = snapshot.val();
+      const currentLikes = Array.isArray(blogData.likes) ? blogData.likes : [];
+    
+      if (!currentLikes.includes(user.uid)) {
+        await update(blogRef, {
+          likes: [...currentLikes, user.uid]
+        });
+      } else {
+        await update(blogRef, {
+          likes: currentLikes.filter(l => l !== user.uid)
+        })
+      }
+    } else {
+      await update(blogRef, {
+        likes: [user.uid]
+      });
+    }
+  };
   
   const handleDel = () => {
     setDeleteWarn(true);
@@ -98,7 +87,7 @@ const BlogPage = () => {
         .replace(/\[.*?\]\(.*?\)/g, '')
         .replace(/!\[.*?\]\(.*?\)/g, '')
         .trim()
-        .slice(0, 100) + '...'
+        .slice(0, 100) + '...',
       });
 
       setBlogEdit(null)
@@ -163,11 +152,11 @@ const BlogPage = () => {
           </div>
         </div>
         <div className='blogpage-meta-buttons'>
-        {/* <div className={`blogpage-likes ${checkLiked ? 'liked' : ''}`}>
+        <div className={`blogpage-likes ${liked ? 'liked' : ''}`}>
           <button onClick={handleLike} className="button-press">
-            <i className={`${checkLiked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}`}></i> {likes}
+            <i className={`${liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}`}></i> {blog?.likes?.length || 0}
           </button>
-        </div> */}
+        </div>
         {admin ?         <div className='blogpage-meta-buttons-admin'>
           {blogEdit ?         <button className="button-press blog-save" onClick={handleSave}>
           <i className="fa-solid fa-floppy-disk"></i>

@@ -53,7 +53,7 @@ const Admin = () => {
       content: formValues.blogBody.trim(),
       author: "Jordan Schulte",
       slug: slug,
-      likes: 0,
+      likes: [],
       date: new Date().toISOString().split('T')[0],
       pfp: "/images/blogpfp.webp",
       snippet: cleanSnippet
