@@ -5,8 +5,11 @@ import AnimatedText from '../utils/animated-text/AnimatedText'
 import FormatDate from '../utils/format-date/FormatDate';
 import Loading from '../utils/loading/Loading';
 import Link from 'next/link';
+import { useAuth } from '../providers/AuthProvider'; 
 
 const BlogCard = () => {
+
+  const { user } = useAuth();
 
   const { blogs, loading } = useBlogs();
   if (loading) return <Loading />;
@@ -33,8 +36,8 @@ const BlogCard = () => {
                 </div>
               </div>
               <div className='blog-meta-right'>
-                {/* <i className="fa-regular fa-heart"></i>
-                <span className='blog-meta-likes'>{blog.likes}</span> */}
+                <i className={`fa-${blog?.likes?.includes(user.uid) ? 'solid' : 'regular'} fa-heart`}></i>
+                <span className='blog-meta-likes'>{blog?.likes?.length || 0}</span>
               </div>
             </div>
           </article>

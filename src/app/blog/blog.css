@@ -93,8 +93,16 @@ gap: 1rem
     align-items: center;
 }
 
+.blog-meta-right {
+    font-size: 1.25rem;
+}
+
+.blog-meta-right .fa-solid {
+    color: #FF6961;
+}
+
  .blog-meta-likes, .blog-meta-author-wrapper {
-    margin-left: 0.25rem;
+    margin-left: 0.5rem;
 }
 
 .blog-title {

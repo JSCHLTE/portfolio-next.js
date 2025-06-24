@@ -33,7 +33,7 @@ const BlogPage = () => {
   useEffect(() => {
     const isLiked = blog?.likes?.includes(user.uid);
     setLiked(isLiked || null)
-  })
+  });
 
   if (loading) return <Loading />;
 
@@ -154,7 +154,7 @@ const BlogPage = () => {
         <div className='blogpage-meta-buttons'>
         <div className={`blogpage-likes ${liked ? 'liked' : ''}`}>
           <button onClick={handleLike} className="button-press">
-            <i className={`${liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}`}></i> {blog?.likes?.length || 0}
+            <i className={`fa-${liked ? 'solid' : 'regular'} fa-heart`}></i> {blog?.likes?.length || 0}
           </button>
         </div>
         {admin ?         <div className='blogpage-meta-buttons-admin'>
