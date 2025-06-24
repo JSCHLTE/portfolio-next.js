@@ -76,7 +76,7 @@ const Contact = () => {
       useEffect(() => {
         let timeout;
     
-        if(notifications?.type !== "warning") {
+        if(notifications) {
             timeout = setTimeout(() => {
                 setNotifications(null)
             }, 7500)

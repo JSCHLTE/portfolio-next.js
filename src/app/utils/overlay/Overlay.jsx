@@ -1,15 +1,17 @@
 "use client";
 
+import { usePathname } from 'next/navigation';
 import './overlay.css'
 import { useUI } from '@/app/providers/UIProvider';
 
 const Overlay = () => {
-
-    const { setNavMenu, overlay, setOverlay } = useUI();
+  
+    const { navMenu, setNavMenu, overlay, setOverlay, deleteWarn, setDeleteWarn } = useUI();
 
     const handleClick = () => {
-        setNavMenu(false)
-        setOverlay(false)
+      if(navMenu) setNavMenu(false)
+      if(deleteWarn) setDeleteWarn(false)
+      setOverlay(false)
     }
 
   return (

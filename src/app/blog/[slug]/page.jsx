@@ -8,14 +8,18 @@ import { useBlogs } from '../useBlogs';
 import { get, ref, update } from 'firebase/database';
 import { database } from '../../firebase';
 import { useParams } from 'next/navigation';
-import BlogDelete from '../BlogDelete';
+import { useRouter } from 'next/router';
+import Overlay from '@/app/utils/overlay/Overlay';
+import { useAuth } from '@/app/providers/AuthProvider';
 import Loading from '../../utils/loading/Loading';
 import '../blog.css'
+import { useUI } from '@/app/providers/UIProvider';
 
-const BlogPage = ({ admin }) => {
+const BlogPage = () => {
+  const { admin } = useAuth();
   const { blogs, loading } = useBlogs();
   const { slug } = useParams();
-  const [deleteWarn, setDeleteWarn] = useState(null)
+  const { deleteWarn, setDeleteWarn } = useUI();
   const [blogEdit, setBlogEdit] = useState(null)
   const [blogEdits, setBlogEdits] = useState({
     title: '',
@@ -47,29 +51,29 @@ const BlogPage = ({ admin }) => {
   if (!blog) return <div>Blog not found</div>;
 
 
-//   const handleLike = async () => {
-//     const blogRef = ref(database, `blogs/${slug}`);
-//     const likedMap = JSON.parse(localStorage.getItem("blogLikes")) || {};
-//     const alreadyLiked = likedMap[slug] === true;
-//     const isLiking = !alreadyLiked;
+  // const handleLike = async () => {
+  //   const blogRef = ref(database, `blogs/${slug}`);
+  //   const likedMap = JSON.parse(localStorage.getItem("blogLikes")) || {};
+  //   const alreadyLiked = likedMap[slug] === true;
+  //   const isLiking = !alreadyLiked;
 
-//     try {
-//       await update(blogRef, { 
-//         likes: isLiking ? likes + 1 : Math.max(0, likes - 1)
-//       });
+  //   try {
+  //     await update(blogRef, { 
+  //       likes: isLiking ? likes + 1 : Math.max(0, likes - 1)
+  //     });
 
-//       // Update local state
-//       setLikes((prev) => Math.max(0, isLiking ? prev + 1 - 1 : prev - 1));
-//       setCheckLiked(isLiking);
+  //     // Update local state
+  //     setLikes((prev) => Math.max(0, isLiking ? prev + 1 - 1 : prev - 1));
+  //     setCheckLiked(isLiking);
 
-//       // Update localStorage
-//       const updatedLikes = { ...likedMap, [slug]: isLiking };
-//       localStorage.setItem("blogLikes", JSON.stringify(updatedLikes));
+  //     // Update localStorage
+  //     const updatedLikes = { ...likedMap, [slug]: isLiking };
+  //     localStorage.setItem("blogLikes", JSON.stringify(updatedLikes));
 
-//     } catch (error) {
-//       console.error("Error updating likes:", error);
-//     }
-//   };
+  //   } catch (error) {
+  //     console.error("Error updating likes:", error);
+  //   }
+  // };
   
   const handleDel = () => {
     setDeleteWarn(true);
@@ -90,7 +94,7 @@ const BlogPage = ({ admin }) => {
       await update(blogRef, { 
         title: blogEdits.title,
         content: blogEdits.content,
-        snippet: blog.content.replace(/[#*_`>~\-+=]+/g, '')
+        snippet: blogEdits.content.replace(/[#*_`>~\-+=]+/g, '')
         .replace(/\[.*?\]\(.*?\)/g, '')
         .replace(/!\[.*?\]\(.*?\)/g, '')
         .trim()
@@ -113,11 +117,38 @@ const BlogPage = ({ admin }) => {
       [name]: value,
     }))
   }
+
+  const handleDelete = async () => {
+
+    try {
+      const blogRef = ref(database, `blogs/${deleteBlog}`);
+      await remove(blogRef);
+      await refresh();
+      setDeleteWarn(false);
+      router.push("/blog")
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert("Failed to delete post.");
+    }
+  }
   
 
   return (
     <div className='blogpage-wrapper'>
-      { admin && deleteWarn ? <BlogDelete setDeleteWarning={setDeleteWarn} deleteBlog={slug}/> : ''}
+      { admin && deleteWarn ?
+    <div className='blog-delete-wrapper'>
+        <div className='blog-delete-topbar'>
+          <h3>Delete Blog</h3>
+          <div className='blog-delete-icon flex-center' onClick={() => setDeleteWarn(false)}><i className="fa-solid fa-x"></i></div>
+        </div>
+        <div className='blog-delete-body'>
+            <p>Are you sure you want to delete this blog?</p>
+            <div className='blog-delete-buttons flex-center'>
+                <button className='delete-yes' onClick={handleDelete}>Yes</button>
+                <button className='delete-no' onClick={() => setDeleteWarn(false)}>No</button>
+            </div>
+        </div>
+    </div> : ''}
       <header>
         {!blogEdit ? <h1><AnimatedText text={blog.title} /></h1> : 
           <input value={blogEdits.title} name='title' className='blogpage-edit-input' onChange={handleChange}/>
@@ -139,13 +170,13 @@ const BlogPage = ({ admin }) => {
         </div> */}
         {admin ?         <div className='blogpage-meta-buttons-admin'>
           {blogEdit ?         <button className="button-press blog-save" onClick={handleSave}>
-          <i class="fa-solid fa-floppy-disk"></i>
+          <i className="fa-solid fa-floppy-disk"></i>
           </button> :         <button className="button-press blog-edit" onClick={handleEdit}>
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i className="fa-solid fa-pen-to-square"></i>
           </button>}
 
           <button className="button-press blog-delete" onClick={handleDel}>
-          <i class="fa-solid fa-trash-can"></i>
+          <i className="fa-solid fa-trash-can"></i>
           </button>
         </div> : ''}
         </div>

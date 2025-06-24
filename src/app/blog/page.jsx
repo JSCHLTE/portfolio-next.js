@@ -1,5 +1,3 @@
-// import BlogDelete from '../Comps/common/blog/BlogDelete';
-import Overlay from '@/app/utils/overlay/Overlay';
 import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 import BlogCard from './BlogCard';
 import './blog.css'

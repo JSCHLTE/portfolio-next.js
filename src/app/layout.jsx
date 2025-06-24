@@ -3,6 +3,7 @@ import Script from "next/script";
 import { AuthProvider } from '@/app/providers/AuthProvider'
 import { UIProvider } from '@/app/providers/UIProvider'
 import ScrollToTop from './utils/scroll-to-top/ScrollToTop'
+import ClientLayout from './ClientLayout'
 import "./globals.css";
 import "./variables.css"
 
@@ -50,7 +51,9 @@ export default function RootLayout({
                   <Bio />
                 </div>
                 <div className="layout-right">
-                  {children}
+                  <ClientLayout>
+                    {children}
+                  </ClientLayout>
                 </div>
               </main>
         <Script
