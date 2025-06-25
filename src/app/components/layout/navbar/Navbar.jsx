@@ -12,6 +12,7 @@ import './navbar.css'
 const Navbar = () => {
 
     const [isScrolled, setIsScrolled] = useState(false);
+    const [dropdown, setDropDown] = useState(false)
     const router = useRouter();
     const pathname = usePathname();
 
@@ -58,8 +59,17 @@ const Navbar = () => {
               <li className={`nav-link ${pathname === '/about' ? 'active' : ''}`}><Link href="/about">About</Link></li>
               <li className={`nav-link ${pathname === '/blog' ? 'active' : ''}`}><Link href="/blog">Blog</Link></li>
               <li className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}><Link href="/contact">Contact</Link></li>
-              {admin ? <li className={`nav-link ${pathname === '/admin' ? 'active' : ''}`}><Link href="/admin">Dashboard</Link></li> : ''}
-              {admin ? <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li> : ''}
+              { admin ?
+              <div className='admin-menu-wrapper' onMouseOver={() => setDropDown(true)} onMouseOut={() => setDropDown(false)}>
+                <li className='nav-link dropdown'>Admin</li>
+                <div className={`admin-menu-dropdown ${dropdown ? 'active' : ''}`}>
+                  <div className='admin-menu-dropdown-inner'>
+                    <li className={`nav-link ${pathname === '/admin' ? 'active' : ''}`}><Link href="/admin">Dashboard</Link></li>
+                    <li className='nav-link' onClick={handleLogout}><Link href="#">Logout</Link></li>
+                  </div>
+                </div>
+              </div>
+              : ''}
             </ul>
             
             <Theme />
