@@ -8,7 +8,7 @@ const checkIfAdmin = async (uid) => {
     const adminRef = ref(database, `admins/${uid}`);
     const snapshot = await get(adminRef);
     return snapshot.exists() && snapshot.val() === true;
-  } catch (err) {
+  } catch {
     return false;
   }
 };
