@@ -1,4 +1,4 @@
-import AnimatedText from "../utils/animated-text/AnimatedText";
+import AnimatedText from "@/app/utils/animated-text/AnimatedText";
 
 const JobTitle = ({ title, workPlace, location, dateStart, dateEnd, tasks, active }) => {
 

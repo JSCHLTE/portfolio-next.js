@@ -2,9 +2,9 @@
 
 import { use, useEffect, useState } from 'react'
 import './contact.css'
-import '../forms.css'
+import '@/app/forms.css'
 import AnimatedText from '@/app/utils/animated-text/AnimatedText'
-import NotificationBox from '../utils/notifications/NotificationBox'
+import NotificationBox from '@/app/utils/notifications/NotificationBox'
 
 const Contact = () => {
 

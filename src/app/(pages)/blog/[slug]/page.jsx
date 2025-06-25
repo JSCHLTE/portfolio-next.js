@@ -2,15 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
-import AnimatedText from '../../utils/animated-text/AnimatedText';
-import FormatDate from '../../utils/format-date/FormatDate';
+import AnimatedText from '@/app/utils/animated-text/AnimatedText';
+import FormatDate from '@/app/utils/format-date/FormatDate';
 import { useBlogs } from '../useBlogs';
 import { get, ref, update, set, remove } from 'firebase/database';
-import { database } from '../../firebase';
+import { database } from '@/app/firebase';
 import { useParams, useRouter } from 'next/navigation';
 import Overlay from '@/app/utils/overlay/Overlay';
 import { useAuth } from '@/app/providers/AuthProvider';
-import Loading from '../../utils/loading/Loading';
+import Loading from '@/app/utils/loading/Loading';
 import '../blog.css'
 import { useUI } from '@/app/providers/UIProvider';
 

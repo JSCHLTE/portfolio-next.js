@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
-import { database } from '../firebase';
+import { database } from '@/app/firebase';
 import { ref, get, child, onValue } from 'firebase/database';
 
 export const useBlogs = () => {

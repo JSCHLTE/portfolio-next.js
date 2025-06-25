@@ -1,11 +1,11 @@
 "use client";
 
 import { useBlogs } from './useBlogs';
-import AnimatedText from '../utils/animated-text/AnimatedText'
-import FormatDate from '../utils/format-date/FormatDate';
-import Loading from '../utils/loading/Loading';
+import AnimatedText from '@/app/utils/animated-text/AnimatedText';
+import FormatDate from '@/app/utils/format-date/FormatDate';
+import Loading from '@/app/utils/loading/Loading';
 import Link from 'next/link';
-import { useAuth } from '../providers/AuthProvider'; 
+import { useAuth } from '@/app/providers/AuthProvider'; 
 
 const BlogCard = () => {
 
