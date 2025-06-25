@@ -24,8 +24,7 @@ export function AuthProvider({ children }) {
       setUser(finalUser);
   
       const isAdmin = await checkIfAdmin(finalUser.uid);
-      setAdmin(isAdmin);
-  
+      isAdmin ? setAdmin(true) : setAdmin(false)
       setLoading(false);
     });
   
@@ -33,7 +32,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, admin, loading, setAdmin }}>
+    <AuthContext.Provider value={{ user, admin, loading, setAdmin, auth }}>
       {children}
     </AuthContext.Provider>
   );

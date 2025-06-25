@@ -18,8 +18,7 @@ const BlogCard = () => {
   return (
     <>
     {blogs.sort((a, b) => new Date(b.date) - new Date(a.date)).map((blog) => (
-      <div key={blog.slug} className='blog-card-container'>
-        <Link className='blog-link' href={`/blog/${blog.slug}`}>
+        <Link className='blog-link button-press' href={`/blog/${blog.slug}`} key={blog.slug}>
           <article className='blog-item button-press'>
             <div className='blog-info'>
               <h3 className='blog-title'><AnimatedText text={blog.title} /></h3>
@@ -52,7 +51,6 @@ const BlogCard = () => {
             </div>
           </article>
         </Link>
-      </div>
     ))}</>
   )
 }

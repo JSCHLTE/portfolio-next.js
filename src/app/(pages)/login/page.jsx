@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
-import AnimatedText from '../utils/animated-text/AnimatedText'
-import '../forms.css'
+import AnimatedText from '@/app/utils/animated-text/AnimatedText'
+import '@/app/forms.css'
+import checkIfAdmin from '@/app/utils/check-if-admin/checkIfAdmin';
+import NotificationBox from '@/app/utils/notifications/NotificationBox';
 
 const Login = () => {
 
@@ -13,6 +15,7 @@ const Login = () => {
     username: '',
     password: ''
   });
+  const [notifications, setNotifications] = useState(undefined);
 
   const router = useRouter();
 
@@ -21,8 +24,18 @@ const Login = () => {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, loginValues.username, loginValues.password);
-      router.push('/admin')
+
+      const isAdmin = await checkIfAdmin(userCredential.user.uid);
+      console.log(isAdmin)
+      if(isAdmin) {
+        router.push('/admin');
+      } else {
+        router.push('/login');
+      }
+
     } catch (error) {
+      handleNotification("failed", "Login Failed", "Username or password is incorrect");
+      setLoginValues(prev => ({...prev, password: ''}))
       console.error("❌ Login failed:", error.message);
     }
   };
@@ -36,10 +49,35 @@ const Login = () => {
     }))
   }
 
+  const handleNotification = (type, message, desc) => {
+    setNotifications({
+      type: [type],
+      message: [message],
+      desc: [desc]
+    })
+  }
+
+  useEffect(() => {
+    if(notifications) {
+        const timeout = setTimeout(() => {
+            setNotifications(null)
+        }, 7500)
+
+    return () => clearTimeout(timeout)
+}
+  }, [notifications])
+
   return (
 
     <>
         <h1 className='login-title'><AnimatedText text='Login'/></h1>
+        {notifications && (
+      <NotificationBox
+        type={notifications.type}
+        message={notifications.message}
+        desc={notifications.desc}
+      />
+    )}
         <form id='loginForm' onSubmit={handleLogin}>
           <div className='username-wrapper'>
             <label htmlFor='username'>
@@ -53,7 +91,7 @@ const Login = () => {
               <input type="password" id='password' name='password' onChange={handleChange} value={loginValues.password} required/>
             </label>
           </div>
-          <button className='login-button'>Login</button>
+          <button className='login-button button-press'>Login</button>
         </form>
     </>
   )

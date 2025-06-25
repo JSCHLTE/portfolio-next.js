@@ -2,31 +2,33 @@
 
 import { useEffect, useState } from 'react';
 import { ref, set } from 'firebase/database';
-import { database } from '../firebase'
-import { slugify } from '../utils/slugify/slugify'; // make sure this exists!
-import { useAuth } from '../providers/AuthProvider'
+import { database } from '@/app/firebase'
+import { slugify } from '@/app/utils/slugify/slugify'; // make sure this exists!
+import { useAuth } from '@/app/providers/AuthProvider'
 import { useRouter } from 'next/navigation';
-import AnimatedText from '../utils/animated-text/AnimatedText';
-import NotificationBox from '../utils/notifications/NotificationBox';
-import '../forms.css'
+import AnimatedText from '@/app/utils/animated-text/AnimatedText';
+import NotificationBox from '@/app/utils/notifications/NotificationBox';
+import '@/app/forms.css'
+import Loading from '@/app/utils/loading/Loading';
+import checkIfAdmin from '@/app/utils/check-if-admin/checkIfAdmin';
 
 const Admin = () => {
 
+    const { admin, loading, auth } = useAuth();
     const router = useRouter();
-
-    const { admin } = useAuth();
-    
-    useEffect(() => {
-        if (admin === false) {
-          router.push('/login');
-        }
-      }, [admin]);
 
   const [formValues, setFormValues] = useState({
     blogTitle: '',
     blogBody: ''
   });
   const [notifications, setNotifications] = useState(null)
+
+  // Redirect non-admin users to login
+  useEffect(() => {
+    if (!loading && admin === false) {
+      router.push('/login');
+    }
+  }, [admin, loading, router]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -89,51 +91,52 @@ const Admin = () => {
     return () => clearTimeout(timeout)
   }, [notifications])
 
+  if(loading) return <Loading />
+  if (!admin) return null;
+
 return (
-  admin && (
-    <div className="admin-wrapper">
-      <h1><AnimatedText text='Create a Blog' /></h1>
+  <div className="admin-wrapper">
+    <h1><AnimatedText text='Create a Blog' /></h1>
 
-      {notifications && (
-        <NotificationBox
-          type={notifications.type}
-          message={notifications.message}
-          desc={notifications.desc}
-        />
-      )}
+    {notifications && (
+      <NotificationBox
+        type={notifications.type}
+        message={notifications.message}
+        desc={notifications.desc}
+      />
+    )}
 
-      <form className="admin-form" onSubmit={handleSubmit}>
-        <div className="form-title-wrapper">
-          <label htmlFor="blogTitle">
-            Blog title:
-            <input
-              type="text"
-              id="blogTitle"
-              name="blogTitle"
-              value={formValues.blogTitle}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
+    <form className="admin-form" onSubmit={handleSubmit}>
+      <div className="form-title-wrapper">
+        <label htmlFor="blogTitle">
+          Blog title:
+          <input
+            type="text"
+            id="blogTitle"
+            name="blogTitle"
+            value={formValues.blogTitle}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      </div>
 
-        <div className="form-body-wrapper">
-          <label htmlFor="blogBody">
-            Blog body:
-            <textarea
-              id="blogBody"
-              name="blogBody"
-              value={formValues.blogBody}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
+      <div className="form-body-wrapper">
+        <label htmlFor="blogBody">
+          Blog body:
+          <textarea
+            id="blogBody"
+            name="blogBody"
+            value={formValues.blogBody}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      </div>
 
-        <button className="form-submit">POST</button>
-      </form>
-    </div>
-  )
+      <button className="form-submit button-press">POST</button>
+    </form>
+  </div>
 );
 
 };
