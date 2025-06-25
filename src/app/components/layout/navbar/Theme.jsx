@@ -3,15 +3,20 @@
 import { useEffect, useState } from "react";
 
 const Theme = () => {
-
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? JSON.parse(savedTheme) : true;
-  });
+  const [theme, setTheme] = useState(true);
 
   useEffect(() => {
-  localStorage.setItem('theme', JSON.stringify(theme));
-  theme ? document.body.classList.remove("light") : document.body.classList.add("light"); 
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme !== null) {
+      setTheme(JSON.parse(savedTheme));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(theme));
+    theme
+      ? document.body.classList.remove("light")
+      : document.body.classList.add("light");
   }, [theme]);
 
     return (
