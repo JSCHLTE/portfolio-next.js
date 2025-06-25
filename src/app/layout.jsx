@@ -26,6 +26,7 @@ const sora = Sora({
 export default function RootLayout({
   children,
 }) {
+  
 
   return (
     <html lang="en" className={`${sora.variable} ${spaceGrotesk.variable}`}>
@@ -33,6 +34,11 @@ export default function RootLayout({
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
       <link href="https://fonts.googleapis.com/css2?family=Mrs+Sheppards&display=swap" rel="stylesheet" />
+      <link rel="icon" href='/images/pfp.webp'/>
+      <meta
+    name="description"
+    content="Explore projects by Jordan Schulte — showcasing web development, creative coding, and UI/UX design work."
+  />
       </head>
       <body className="content-wrapper">
         <AuthProvider>

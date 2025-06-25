@@ -2,6 +2,12 @@ import AnimatedText from '@/app/utils/animated-text/AnimatedText'
 import JobTitle from './JobTitle'
 import './about.css'
 
+export const metadata = {
+  title: 'About | Jordan Schulte',
+  description: 'More about Jordan Schulte and his work history.',
+};
+
+
 const About = () => {
 
   return (

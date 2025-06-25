@@ -2,6 +2,11 @@ import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 import BlogCard from './BlogCard';
 import './blog.css'
 
+export const metadata = {
+  title: 'Blog | Jordan Schulte',
+  description: "The blog page, read Jordan Schulte's blogs and get updates about him and the website.",
+};
+
 const Blog = () => {
 
   return (
