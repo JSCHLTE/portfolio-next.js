@@ -14,16 +14,21 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        const isAdmin = await checkIfAdmin();
-        setAdmin(isAdmin);
-      } else {
-        await signInAnonymously(auth);
+      let finalUser = user;
+  
+      if (!user) {
+        const anonResult = await signInAnonymously(auth);
+        finalUser = anonResult.user;
       }
+  
+      setUser(finalUser);
+  
+      const isAdmin = await checkIfAdmin(finalUser.uid);
+      setAdmin(isAdmin);
+  
       setLoading(false);
     });
-
+  
     return () => unsubscribe();
   }, []);
 

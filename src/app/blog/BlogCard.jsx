@@ -36,8 +36,18 @@ const BlogCard = () => {
                 </div>
               </div>
               <div className='blog-meta-right'>
-                <i className={`fa-${blog?.likes?.includes(user.uid) ? 'solid' : 'regular'} fa-heart`}></i>
-                <span className='blog-meta-likes'>{blog?.likes?.length || 0}</span>
+                <span className='blog-meta-likes'>{(() => {
+                                          const likeCount = blog.likes ? Object.keys(blog.likes).length : 0;
+                                          const hasLiked = blog.likes && user?.uid && blog.likes[user.uid] === true;
+
+                                          return (
+                                            <>
+                                              <i className={`fa-${hasLiked ? 'solid' : 'regular'} fa-heart`}></i>
+                                              <span className='blog-meta-likes'>{likeCount}</span>
+                                            </>
+                                          );
+                                        })()}
+                                      </span>
               </div>
             </div>
           </article>

@@ -1,14 +1,18 @@
 import { ref, get } from "firebase/database"
-import { auth, database } from "../../firebase"
+import { database } from "../../firebase"
 
-const checkIfAdmin = async () => {
-  const uid = auth.currentUser?.uid;
+const checkIfAdmin = async (uid) => {
   if (!uid) return false;
 
-  const adminRef = ref(database, `admins/${uid}`);
-  const snapshot = await get(adminRef);
-  return snapshot.exists();
+  try {
+    const adminRef = ref(database, `admins/${uid}`);
+    const snapshot = await get(adminRef);
+    return snapshot.exists() && snapshot.val() === true;
+  } catch (err) {
+    return false;
+  }
 };
+
 
 
 export default checkIfAdmin

@@ -5,10 +5,9 @@ import Markdown from 'react-markdown';
 import AnimatedText from '../../utils/animated-text/AnimatedText';
 import FormatDate from '../../utils/format-date/FormatDate';
 import { useBlogs } from '../useBlogs';
-import { get, ref, update } from 'firebase/database';
+import { get, ref, update, set, remove } from 'firebase/database';
 import { database } from '../../firebase';
-import { useParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 import Overlay from '@/app/utils/overlay/Overlay';
 import { useAuth } from '@/app/providers/AuthProvider';
 import Loading from '../../utils/loading/Loading';
@@ -26,49 +25,50 @@ const BlogPage = () => {
     content: ''
   })
 
+  const router = useRouter();
+
   const [liked, setLiked] = useState(null);
+  const [likes, setLikes] = useState(null);
 
   const blog = blogs.find((b) => b.slug === slug);
 
+
   useEffect(() => {
-    const isLiked = blog?.likes?.includes(user.uid);
-    setLiked(isLiked || null)
-  });
+    if (!blog || !user) return;
+  
+    const isLiked = blog.likes && blog.likes.hasOwnProperty(user.uid);
+    setLiked(isLiked);
+  
+    const likeKeys = blog.likes ? Object.keys(blog.likes) : [];
+    setLikes(likeKeys.length);
+  }, [blog, user]);
+  
 
   if (loading) return <Loading />;
 
   if (!blog) return <div>Blog not found</div>;
 
-
   const handleLike = async () => {
-    const blogRef = ref(database, `blogs/${slug}`);
-    const snapshot = await get(blogRef);
-
+    if (!user?.uid) return;
+  
+    const likeRef = ref(database, `blogs/${slug}/likes/${user.uid}`);
+    const snapshot = await get(likeRef);
+  
     if (snapshot.exists()) {
-      const blogData = snapshot.val();
-      const currentLikes = Array.isArray(blogData.likes) ? blogData.likes : [];
-    
-      if (!currentLikes.includes(user.uid)) {
-        await update(blogRef, {
-          likes: [...currentLikes, user.uid]
-        });
-      } else {
-        await update(blogRef, {
-          likes: currentLikes.filter(l => l !== user.uid)
-        })
-      }
+      await remove(likeRef);
     } else {
-      await update(blogRef, {
-        likes: [user.uid]
-      });
+      await set(likeRef, true);
     }
   };
   
+  
   const handleDel = () => {
+    if(!admin) return;
     setDeleteWarn(true);
   }
 
   const handleEdit = () => {
+    if(!admin) return;
     setBlogEdit(true)
     setBlogEdits({
       title: blog.title,
@@ -108,11 +108,9 @@ const BlogPage = () => {
   }
 
   const handleDelete = async () => {
-
     try {
-      const blogRef = ref(database, `blogs/${deleteBlog}`);
+      const blogRef = ref(database, `blogs/${slug}`);
       await remove(blogRef);
-      await refresh();
       setDeleteWarn(false);
       router.push("/blog")
     } catch (error) {
@@ -150,7 +148,7 @@ const BlogPage = () => {
         <div className='blogpage-meta-buttons'>
         <div className={`blogpage-likes ${liked ? 'liked' : ''}`}>
           <button onClick={handleLike} className="button-press">
-            <i className={`fa-${liked ? 'solid' : 'regular'} fa-heart`}></i> {blog?.likes?.length || 0}
+            <i className={`fa-${liked ? 'solid' : 'regular'} fa-heart`}></i> {likes}
           </button>
         </div>
         {admin ?         <div className='blogpage-meta-buttons-admin'>

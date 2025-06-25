@@ -60,7 +60,7 @@ const Admin = () => {
     };
 
     try {
-      const blogRef = ref(database, `blog/${slug}`);
+      const blogRef = ref(database, `blogs/${slug}`);
       await set(blogRef, newBlog);
       handleNotification("success", "Blog Posted", "Blog successfully posted.")
       setFormValues({ blogTitle: '', blogBody: '' });
