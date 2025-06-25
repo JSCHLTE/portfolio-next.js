@@ -19,7 +19,7 @@ export const useBlogs = () => {
         blogArray = [data]; // single blog object case
       } else {
         blogArray = Object.entries(data || {})
-          .filter(([id, blog]) => blog && blog.title)
+          .filter(([, blog]) => blog && blog.title)
           .map(([id, blog]) => ({
             id,
             ...blog,
