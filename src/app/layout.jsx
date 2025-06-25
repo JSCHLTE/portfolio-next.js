@@ -23,12 +23,6 @@ const sora = Sora({
   variable: '--font-sora'
 });
 
-export const Metadata = {
-  title: "Jordan Schulte | Projects",
-  icons: "images/blogpfp.webp",
-  description: "Jordan Schulte's portfolio website",
-};
-
 export default function RootLayout({
   children,
 }) {
