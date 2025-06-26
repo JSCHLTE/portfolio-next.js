@@ -53,6 +53,7 @@ transform: scale(0.875) !important;
   background: linear-gradient(120deg, var(--skeleton1) 25%, var(--skeleton2) 50%, var(--skeleton1) 75%);
   background-size: 200% 100%;
   animation: shimmer 5s infinite;
+  position: relative;
 }
 
 .skeleton img {

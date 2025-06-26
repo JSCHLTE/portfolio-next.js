@@ -6,6 +6,7 @@ import FormatDate from '@/app/utils/format-date/FormatDate';
 import Loading from '@/app/utils/loading/Loading';
 import Link from 'next/link';
 import { useAuth } from '@/app/providers/AuthProvider'; 
+import Image from 'next/image';
 
 const BlogCard = () => {
 
@@ -27,7 +28,11 @@ const BlogCard = () => {
             <div className='blog-meta'>
               <div className='blog-meta-left'>
               <div className='blog-meta-img-wrapper skeleton'>
-                <img src="/images/pfp.webp" alt="Image of Jordan" className='blog-meta-pfp' />
+              <Image
+                src='/images/pfp.webp'
+                alt="Image of Jordan"
+                fill
+            />
               </div>
                 <div className='blog-meta-author-wrapper'>
                   <span className='blog-meta-author'>{blog.author}</span>

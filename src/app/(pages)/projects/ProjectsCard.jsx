@@ -1,4 +1,5 @@
 import AnimatedText from '@/app/utils/animated-text/AnimatedText';
+import Image from 'next/image';
 
 const ProjectsCard = ({ project }) => {
     const { thumbnail, title, desc, github, live } = project
@@ -12,7 +13,11 @@ const ProjectsCard = ({ project }) => {
     <div className='projects-card-wrapper'>
         <div className='projects-card-thumbnail-wrapper'>
             <div className='projects-img-wrapper skeleton'>
-                <img src={thumbnail} alt='Project thumbnail'/>
+                <Image
+                src={thumbnail}
+                alt="Project thumbnail"
+                fill
+            />
             </div>
         </div>
         <div className='projects-card-info-wrapper'>

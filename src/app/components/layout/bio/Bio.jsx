@@ -3,6 +3,7 @@
 import './bio.css'
 import AnimatedText from '@/app/utils/animated-text/AnimatedText'
 import { useAuth } from '@/app/providers/AuthProvider';
+import Image from 'next/image';
 
 const Bio = () => {
 
@@ -11,7 +12,11 @@ const Bio = () => {
   return (
     <div className='bio-wrapper'>
         <div className='bio-img-wrapper skeleton'>
-            <img src='/images/pfp.webp' alt="Stylized portrait of Jordan wearing sunglasses, created with a swirling, abstract filter effect that resembles painted brush strokes. The sunglasses reflect the word 'Vibes' in a bold, colorful font."/>
+          <Image
+                  src='/images/pfp.webp'
+                  alt="Stylized portrait of Jordan wearing sunglasses, created with a swirling, abstract filter effect that resembles painted brush strokes. The sunglasses reflect the word 'Vibes' in a bold, colorful font."
+                  fill
+              />
         </div>
         <div className='bio-info-wrapper'>
           {admin ? <span className='admin-mode'>Admin Mode</span> : ''}

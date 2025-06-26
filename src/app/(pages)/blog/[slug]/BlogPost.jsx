@@ -12,6 +12,7 @@ import { useAuth } from '@/app/providers/AuthProvider';
 import Loading from '@/app/utils/loading/Loading';
 import '../blog.css'
 import { useUI } from '@/app/providers/UIProvider';
+import Image from 'next/image';
 
 const BlogPost = () => {
   const { admin, user } = useAuth();
@@ -137,7 +138,11 @@ const BlogPost = () => {
         }
         <div className='blogpage-meta'>
         <div className='blogpage-img-wrapper skeleton'>
-          <img loading='eager' src={blog.pfp} alt="Author Profile" />
+         <Image
+                  src={blog.pfp}
+                  alt="Author Profile"
+                  fill
+              />
         </div>
           <div>
             <address className='blogpage-author'>By <span>{blog.author}</span></address>
