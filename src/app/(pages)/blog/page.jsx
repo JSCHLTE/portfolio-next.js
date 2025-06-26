@@ -1,6 +1,6 @@
-import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 import BlogCard from './BlogCard';
 import './blog.css'
+import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 
 export const metadata = {
   title: 'Blog | Jordan Schulte',

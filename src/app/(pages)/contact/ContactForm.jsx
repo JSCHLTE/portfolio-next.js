@@ -1,9 +1,8 @@
 "use client";
 
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './contact.css'
 import '@/app/forms.css'
-import AnimatedText from '@/app/utils/animated-text/AnimatedText'
 import NotificationBox from '@/app/utils/notifications/NotificationBox'
 
 const ContactForm = () => {
@@ -86,8 +85,7 @@ const ContactForm = () => {
       }, [notifications])
 
   return (
-    <div className="contact-wrapper">
-        <h1><AnimatedText text="Contact Me"/></h1>
+      <>
         {notifications ? <NotificationBox type={notifications.type} message={notifications.message} desc={notifications.desc}/> : ''}
         <form onSubmit={handleSubmit} id='contactForm'>
             <label htmlFor='contactName'>
@@ -108,7 +106,7 @@ const ContactForm = () => {
             </label>
             {loading ? <button className='contact-button disabled' disabled><iframe className='spinner' src="https://lottie.host/embed/a9d1be0a-eba0-4c76-9dcf-b95d27e96f6b/jpskbz67I1.lottie"></iframe></button> : <button className='contact-button button-press'>Send Message</button>}
         </form>
-    </div>
+      </>
   )
 }
 

@@ -1,4 +1,5 @@
 import LoginForm from './LoginForm';
+import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 
 export const metadata = {
   title: 'Admin | Jordan Schulte',
@@ -8,7 +9,10 @@ export const metadata = {
 
 const Login = () => {
   return (
-    <LoginForm />
+    <>
+      <h1 className='login-title'><AnimatedText text='Login'/></h1>
+      <LoginForm />
+    </>
   )
 }
 

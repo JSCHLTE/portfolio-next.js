@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/app/firebase';
 import { useRouter } from 'next/navigation';
-import AnimatedText from '@/app/utils/animated-text/AnimatedText'
 import '@/app/forms.css'
 import checkIfAdmin from '@/app/utils/check-if-admin/checkIfAdmin';
 import NotificationBox from '@/app/utils/notifications/NotificationBox';
@@ -70,7 +69,6 @@ const LoginForm = () => {
   return (
 
     <>
-        <h1 className='login-title'><AnimatedText text='Login'/></h1>
         {notifications && (
       <NotificationBox
         type={notifications.type}

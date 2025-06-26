@@ -1,4 +1,5 @@
 import ContactForm from './ContactForm'
+import AnimatedText from '@/app/utils/animated-text/AnimatedText.jsx'
 
 export const metadata = {
   title: 'Contact | Jordan Schulte',
@@ -7,7 +8,10 @@ export const metadata = {
 
 const Contact = () => {
   return (
-    <ContactForm />
+    <div className="contact-wrapper">
+      <h1><AnimatedText text="Contact Me"/></h1>
+      <ContactForm />
+    </div>
   )
 }
 

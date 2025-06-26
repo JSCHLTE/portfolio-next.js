@@ -1,4 +1,5 @@
 import AdminDashboard from './AdminDashboard';
+import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 
 export const metadata = {
   title: 'Admin | Jordan Schulte',
@@ -8,7 +9,10 @@ export const metadata = {
 
 const Admin = () => {
   return (
-    <AdminDashboard />
+    <div className="admin-wrapper">
+      <h1><AnimatedText text='Create a Blog' /></h1>
+      <AdminDashboard />
+    </div>
   );
 };
 

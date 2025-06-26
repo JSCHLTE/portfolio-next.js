@@ -6,7 +6,6 @@ import { database } from '@/app/firebase'
 import { slugify } from '@/app/utils/slugify/slugify'; // make sure this exists!
 import { useAuth } from '@/app/providers/AuthProvider'
 import { useRouter } from 'next/navigation';
-import AnimatedText from '@/app/utils/animated-text/AnimatedText';
 import NotificationBox from '@/app/utils/notifications/NotificationBox';
 import '@/app/forms.css'
 import Loading from '@/app/utils/loading/Loading';
@@ -94,9 +93,7 @@ const AdminDashboard = () => {
   if (!admin) return null;
 
 return (
-  <div className="admin-wrapper">
-    <h1><AnimatedText text='Create a Blog' /></h1>
-
+  <>
     {notifications && (
       <NotificationBox
         type={notifications.type}
@@ -135,7 +132,7 @@ return (
 
       <button className="form-submit button-press">POST</button>
     </form>
-  </div>
+  </>
 );
 
 };
