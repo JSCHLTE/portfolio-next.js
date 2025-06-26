@@ -31,14 +31,18 @@
 
 /*Global buttons*/
 
-.button-press {
-transform: scale(1);
-transition: transform 0.1s ease;
+.button-press, .card-press {
+  transform: scale(1);
+  transition: transform 0.1s ease-in-out;
 }
 
 .button-press:active {
 transform: scale(0.875) !important;
 }
+
+.card-press:active {
+  transform: scale(0.99) !important;
+  }
 
 
 .layout-left.login {
