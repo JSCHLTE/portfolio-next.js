@@ -22,7 +22,7 @@ const Bio = () => {
           {admin ? <span className='admin-mode'>Admin Mode</span> : ''}
             <span className='bio-info-name'><AnimatedText text='Jordan Schulte'/></span>
             <div className='bio-info-location'><AnimatedText text='Buffalo, NY'/></div>
-            <div className='bio-info-role'><AnimatedText text='Front-End Engineer'/></div>
+            <div className='bio-info-role'><AnimatedText text='Web Developer'/></div>
             <div className='bio-links-wrapper'>
                 <a href="https://github.com/JSCHLTE" target='_blank' rel='noreferrer noopener' aria-label='Checkout my GitHub' className='button-press'><i className="fa-brands fa-github" aria-hidden="true"></i></a>
                 <a href="https://www.linkedin.com/in/jordan-schulte-9a5961216/" target='_blank' rel='noreferrer noopener' aria-label='Checkout my LinkedIn' className='button-press'><i className="fa-brands fa-linkedin" aria-hidden="true"></i></a>
