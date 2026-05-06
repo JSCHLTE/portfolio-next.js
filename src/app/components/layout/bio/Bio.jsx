@@ -26,7 +26,7 @@ const Bio = () => {
             <div className='bio-links-wrapper'>
                 <a href="https://github.com/JSCHLTE" target='_blank' rel='noreferrer noopener' aria-label='Checkout my GitHub' className='button-press'><i className="fa-brands fa-github" aria-hidden="true"></i></a>
                 <a href="https://www.linkedin.com/in/jordan-schulte-9a5961216/" target='_blank' rel='noreferrer noopener' aria-label='Checkout my LinkedIn' className='button-press'><i className="fa-brands fa-linkedin" aria-hidden="true"></i></a>
-                <a href="https://x.com/jschlte" target='_blank' rel='noreferrer noopener' aria-label='Checkout my Twitter' className='button-press'><i className="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                <a href="https://x.com/jschlt3" target='_blank' rel='noreferrer noopener' aria-label='Checkout my Twitter' className='button-press'><i className="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
             </div>
             <div className='bio-copyright'>
               <p>© Jordan Schulte {new Date().getFullYear()}</p>
