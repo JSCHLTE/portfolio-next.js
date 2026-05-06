@@ -14,7 +14,7 @@ const About = () => {
     <div className="about-wrapper">
     <section className='aboutme-wrapper'>
     <h1 className='about-title'><AnimatedText text="About Me" /></h1>
-    <p>Hey, I’m a Front-End Engineer who’s big on the details — I like making sure things look exactly how they’re supposed to, and that they work just as well on a phone as they do on a big screen. I’m all about clean, responsive design and writing code that feels solid. Right now, I’m looking to break into the dev world and join a team where I can keep learning, build cool things, and grow as a developer. Outside of coding, you’ll usually find me watching sports, gaming, or spending time with the fam.</p>
+    <p>I'm a Web Developer who focuses on writing clean, responsive code and ensuring consistent, high-quality experiences across devices. I value precision in implementation and building interfaces that are both functional and well-structured. I'm looking to join a team where I can contribute to meaningful projects, continue growing technically, and collaborate with others who are passionate about the web. Outside of development, I enjoy watching sports, golfing, and spending time with family.</p>
     </section>
     <section className='work-wrapper'>
     <h2><AnimatedText text="Work History" /></h2>
