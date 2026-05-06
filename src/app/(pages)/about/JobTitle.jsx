@@ -6,7 +6,6 @@ const JobTitle = ({ title, workPlace, location, dateStart, dateEnd, tasks, activ
         const correctString = dateString.toLowerCase();
         if(!correctString || correctString == 'present') return 'Present';
         const [year, month] = correctString.split('-');
-        console.log(year, month)
         const dateObj = new Date(year, month - 1, 1);
         return dateObj.toLocaleString('default', {
             month: 'long',

@@ -25,7 +25,6 @@ const LoginForm = () => {
       const userCredential = await signInWithEmailAndPassword(auth, loginValues.username, loginValues.password);
 
       const isAdmin = await checkIfAdmin(userCredential.user.uid);
-      console.log(isAdmin)
       if(isAdmin) {
         router.push('/admin');
       } else {
