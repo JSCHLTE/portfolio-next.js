@@ -11,7 +11,8 @@ export const metadata = {
 export default function Home() {
   return (
     <div className="project-wrapper">
-      <h1><AnimatedText text='Projects' /></h1>
+      <h1><AnimatedText text='Live Projects' /></h1>
+      <p><AnimatedText text='View more of my work on my GitHub.' /></p>
       <div className='projects-wrapper'>
           {projectsThumbData.map((project) => (
               <ProjectsCard key={project.slug} project={project}/>
